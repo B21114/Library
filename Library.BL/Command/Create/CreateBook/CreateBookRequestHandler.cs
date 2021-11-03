@@ -2,7 +2,6 @@
 using Library.DL.Domain.Entities;
 using Library.DL.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,18 +18,15 @@ namespace Library.BL.Command.Create.CreateBook
         private readonly IAuthorDbContext _author;
         private readonly IBookDbContext _bookDbContext;
         private readonly IPublisherDbContext _publisherDbContext;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CreateBookRequestHandler(IAuthorDbContext authorDbContext,
             IBookDbContext bookDbContext,
             IPublisherDbContext publisherDbContext,
-            IHttpContextAccessor httpContextAccessor,
             ApplicationContext applicationContext)
         {
             _author = authorDbContext;
             _bookDbContext = bookDbContext;
             _publisherDbContext = publisherDbContext;
-            _httpContextAccessor = httpContextAccessor;
             _applicationContext = applicationContext;
         }
 

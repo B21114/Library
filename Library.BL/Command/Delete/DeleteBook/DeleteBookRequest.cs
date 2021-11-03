@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.BL.Command.Create.CreateBook
+namespace Library.BL.Command.Delete.DeleteBook
 {
     /// <summary>
     /// 
