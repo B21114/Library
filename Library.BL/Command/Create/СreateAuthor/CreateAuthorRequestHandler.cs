@@ -1,5 +1,6 @@
 ﻿using Library.DL.Domain.Entities;
 using Library.DL.Infrastructure;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,37 +8,40 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Library.BL.Command.Create
+namespace Library.BL.Command.Create.CreateAuthor
 {
-    public class CreateAuthor
+    public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, CreateAuthorResponse>
     {
         private readonly AuthorDbContext _authorDbContext;
-        public CreateAuthor(AuthorDbContext authorDbContext)
+        public CreateAuthorRequestHandler(AuthorDbContext authorDbContext)
         {
             _authorDbContext = authorDbContext;
         }
 
-        public async Task<CreateAuthor> Handle(
-         AuthorDTO author,
+        public async Task<CreateAuthorResponse> Handle(
+         CreateAuthorRequest request,
          CancellationToken cancellationToken)
         {
 
-            var createAuthor = new Author
+            var author = new Author
             {
                 Id = Guid.NewGuid(),
-                Lastname = author.Lastname,
-                Firstname = author.Firstname,
-                Patronymic = author.Patronymic,
-                Activity = author.Activity
+                Lastname = request.Lastname,
+                Firstname = request.Firstname,
+                Patronymic = request.Patronymic,
+                Activity = request.Activity
             };
 
             // Начинает отслеживание сущности контент.
-            await _authorDbContext.Authors.AddAsync(createAuthor);
+            await _authorDbContext.Authors.AddAsync(author);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
             await _authorDbContext.SaveChangesAsync();
 
-            return; 
+            return new CreateAuthorResponse
+            {
+                IdAuthor = author.Id
+            };
         }
     }
 }

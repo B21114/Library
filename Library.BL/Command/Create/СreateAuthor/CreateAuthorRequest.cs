@@ -1,20 +1,17 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.DL.Domain.Entities
+namespace Library.BL.Command.Create.CreateAuthor
 {
     /// <summary>
     /// DTO автор книги.
     /// </summary>
-    public class AuthorDTO
+    public class CreateAuthorRequest : IRequest<CreateAuthorResponse>
     {
-        /// <summary>
-        /// Идентификатор автора.
-        /// </summary>
-        public Guid Id { get; set; }
 
         /// <summary>
         /// Имя автора.

@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
+using System.Reflection;
 
 namespace Library.Web
 {
@@ -36,7 +38,21 @@ namespace Library.Web
 
             // Добавляем контекст PublisherContext в качестве сервиса в приложение.
             services.AddDbContext<IPublisherDbContext, PublisherDbContext>(options => options.UseInMemoryDatabase("MyDataBase"));
-            services.AddMvc();
+
+            // Получение типов.
+            var assemblies = new Assembly[]
+            {
+                typeof(Library.BL.Bootstrap.ServiceCollectionExtensions).Assembly,
+            };
+
+            // Сервис помогающий реализовать паттерн Mediator(Посредник).
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            // Сервис позволяющий проецировать одну модель на другую.
+            services.AddAutoMapper(assemblies);
+
+            // Сервис сканирует сборки и добавляет в контейнер реализации обработчиков.
+            services.AddMediatR(assemblies);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

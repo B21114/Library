@@ -1,6 +1,7 @@
 ﻿using Library.DL.Domain;
 using Library.DL.Domain.Entities;
 using Library.DL.Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Library.BL.Command.Create
+namespace Library.BL.Command.Create.CreateBook
 {
-    public class CreateBook
+    public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, CreateBookResponse>
     {
         private readonly ApplicationContext _applicationContext;
         private readonly IAuthorDbContext _author;
@@ -20,7 +21,7 @@ namespace Library.BL.Command.Create
         private readonly IPublisherDbContext _publisherDbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateBook(IAuthorDbContext authorDbContext,
+        public CreateBookRequestHandler(IAuthorDbContext authorDbContext,
             IBookDbContext bookDbContext,
             IPublisherDbContext publisherDbContext,
             IHttpContextAccessor httpContextAccessor,
@@ -34,34 +35,34 @@ namespace Library.BL.Command.Create
         }
 
 
-        public async Task<CreateBook> Handle(
-        BookDTO book,
+        public async Task<CreateBookResponse> Handle(
+        CreateBookRequest request,
         CancellationToken cancellationToken)
         {
-            var user = await _applicationContext.Authors
-        .FindAsync(new Guid(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value));
+   
+            var author = new Author { Id = request.Author.Id };
+            var publisher = new Publisher { Id = request.Author.Id };
 
-            var author = new Author { Id = user.Id };
-            var publisher = new Publisher
-            { };
-
-            var createBook = new Book
+            var book = new Book
             {
                 Id = Guid.NewGuid(),
                 Author = author,
-                Name = book.Name,
-                NumberOfPages = book.NumberOfPages,
+                Name = request.Name,
+                NumberOfPages = request.NumberOfPages,
                 Publisher = publisher
             };
 
             // Начинает отслеживание сущности книги.
-            await _bookDbContext.Books.AddAsync(createBook);
-
+            await _bookDbContext.Books.AddAsync(book);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
             await _bookDbContext.SaveChangesAsync();
 
-            return;
+            // Возвращает CreateBookResponse с Id новой записи.
+            return new CreateBookResponse
+            {
+                IdBook = book.Id
+            };
         }
     }
 }

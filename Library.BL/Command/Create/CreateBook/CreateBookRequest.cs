@@ -1,25 +1,23 @@
-﻿using System;
+﻿using Library.DL.Domain.Entities;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.DL.Domain.Entities
+namespace Library.BL.Command.Create.CreateBook
 {
     /// <summary>
-    /// DTO книги.
+    /// 
     /// </summary>
-    public class BookDTO
+    public class CreateBookRequest : IRequest<CreateBookResponse>
     {
-        /// <summary>
-        /// Идентификатор книги.
-        /// </summary>
-        public Guid Id { get; set; }
-
+   
         /// <summary>
         /// Aвтор книги.
         /// </summary>
-        public AuthorDTO Author { get; set; }
+        public Author Author { get; set; }
 
         /// <summary>
         /// Издатель книги.
