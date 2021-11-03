@@ -17,12 +17,12 @@ namespace Library.BL.Command.Create.CreateBook
         /// <summary>
         /// Aвтор книги.
         /// </summary>
-        public Author Author { get; set; }
+        public Guid AuthorId { get; set; }
 
         /// <summary>
         /// Издатель книги.
         /// </summary>
-        public Publisher Publisher { get; set; }
+        public Guid PublisherId { get; set; }
 
         /// <summary>
         /// Наименование книги.

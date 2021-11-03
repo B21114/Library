@@ -1,4 +1,5 @@
-﻿using Library.DL.Domain.Entities;
+﻿using Library.DL.Domain;
+using Library.DL.Domain.Entities;
 using Library.DL.Infrastructure;
 using MediatR;
 using System;
@@ -13,8 +14,8 @@ namespace Library.BL.Command.Create.CreatePublisher
     public class CreatePublisherRequestHandler : IRequestHandler<CreatePublisherRequest, CreatePublisherResponse>
     {
 
-        private readonly PublisherDbContext _publisherDbContext;
-        public CreatePublisherRequestHandler(PublisherDbContext publisherDbContext)
+        private readonly IPublisherDbContext _publisherDbContext;
+        public CreatePublisherRequestHandler(IPublisherDbContext publisherDbContext)
         {
             _publisherDbContext = publisherDbContext;
         }

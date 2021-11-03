@@ -50,27 +50,14 @@ namespace Library.Web
             // Получение типов.
             var assemblies = new Assembly[]
             {
-                typeof(Library.BL.Bootstrap.ServiceCollectionExtensions).Assembly
-             /*  typeof(Library.BL.Command.Create.CreateBook.CreateBookRequest).Assembly,
-                typeof(Library.BL.Command.Create.CreateBook.CreateBookRequestHandler).Assembly,
-                typeof(Library.BL.Command.Create.CreateBook.CreateBookResponse).Assembly,
-                typeof(Library.BL.Command.Delete.DeleteBook.DeleteBookRequest).Assembly,
-                typeof(Library.BL.Command.Delete.DeleteBook.DeleteBookRequestHandler).Assembly,
-                typeof(Library.BL.Command.Delete.DeleteBook.DeleteBookResponse).Assembly,*/
+                typeof(Library.BL.Bootstrap.ServiceCollectionExtensions).Assembly,
             };
-
            
-
             // Сервис позволяющий проецировать одну модель на другую.
             services.AddAutoMapper(assemblies);
 
             // Сервис сканирует сборки и добавляет в контейнер реализации обработчиков.
             services.AddMediatR(assemblies);
-
-            // Сервис 
-          /*  services.AddTransient<IBookDbContext, BookDbContext>();
-            services.AddTransient<IPublisherDbContext, PublisherDbContext>();
-            services.AddTransient<IAuthorDbContext, AuthorDbContext>();*/
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

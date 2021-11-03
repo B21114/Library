@@ -1,4 +1,5 @@
-﻿using Library.DL.Domain.Entities;
+﻿using Library.DL.Domain;
+using Library.DL.Domain.Entities;
 using Library.DL.Infrastructure;
 using MediatR;
 using System;
@@ -12,8 +13,8 @@ namespace Library.BL.Command.Create.CreateAuthor
 {
     public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, CreateAuthorResponse>
     {
-        private readonly AuthorDbContext _authorDbContext;
-        public CreateAuthorRequestHandler(AuthorDbContext authorDbContext)
+        private readonly IAuthorDbContext _authorDbContext;
+        public CreateAuthorRequestHandler(IAuthorDbContext authorDbContext)
         {
             _authorDbContext = authorDbContext;
         }

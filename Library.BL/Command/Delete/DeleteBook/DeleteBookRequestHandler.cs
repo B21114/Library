@@ -1,6 +1,7 @@
 ﻿using Library.BL.Command.Create.CreateBook;
 using Library.DL.Domain;
 using Library.DL.Domain.Entities;
+using MediatR;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Library.BL.Command.Delete.DeleteBook
 {
-    public class DeleteBookRequestHandler
+    public class DeleteBookRequestHandler : IRequestHandler<DeleteBookRequest, DeleteBookResponse>
     {
         private readonly IBookDbContext _bookDbContext;
         public DeleteBookRequestHandler(IBookDbContext bookDbContext)
@@ -22,7 +23,7 @@ namespace Library.BL.Command.Delete.DeleteBook
        DeleteBookRequest request,
        CancellationToken cancellationToken)
         {
-            // Поиск книго в базе данных.
+            // Поиск книги в базе данных.
             Book book = _bookDbContext.Books.Where(o => o.Id == request.IdBook).FirstOrDefault();
 
             if (book == null)

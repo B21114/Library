@@ -14,20 +14,17 @@ namespace Library.BL.Command.Create.CreateBook
 {
     public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, CreateBookResponse>
     {
-        private readonly ApplicationContext _applicationContext;
         private readonly IAuthorDbContext _author;
         private readonly IBookDbContext _bookDbContext;
         private readonly IPublisherDbContext _publisherDbContext;
 
         public CreateBookRequestHandler(IAuthorDbContext authorDbContext,
             IBookDbContext bookDbContext,
-            IPublisherDbContext publisherDbContext,
-            ApplicationContext applicationContext)
+            IPublisherDbContext publisherDbContext)
         {
             _author = authorDbContext;
             _bookDbContext = bookDbContext;
             _publisherDbContext = publisherDbContext;
-            _applicationContext = applicationContext;
         }
 
 
@@ -36,8 +33,8 @@ namespace Library.BL.Command.Create.CreateBook
         CancellationToken cancellationToken)
         {
    
-            var author = new Author { Id = request.Author.Id };
-            var publisher = new Publisher { Id = request.Author.Id };
+            var author = new Author { Id = request.AuthorId };
+            var publisher = new Publisher { Id = request.PublisherId};
 
             var book = new Book
             {
