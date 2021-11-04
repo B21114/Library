@@ -9,7 +9,7 @@ namespace Library.BL.Command.Delete.DeleteBook
     /// <summary>
     /// DTO книги.
     /// </summary>
-    public class DeleteBookResponse 
+    public class DeleteBookResponse
     {
         /// <summary>
         /// Cтатус удаления

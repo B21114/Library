@@ -15,7 +15,7 @@ namespace Library.BL.Command.Read.ReadBookId
     /// </summary>
     public class ReadBookByIdRequestHandler : IRequestHandler<ReadBookByIdRequest, ReadBookByIdResponse>
     {
-        private readonly IBookDbContext _bookDbContext;
+        private readonly IDataBaseContext _dataBaseContext;
         private IMapper _mapper;
 
         /// <summary>
@@ -24,9 +24,9 @@ namespace Library.BL.Command.Read.ReadBookId
         /// <param name="contentDbContext">Контекст базы данных предоставляющий контент.</param>
         /// <param name="httpContextAccessor">Предоставляет доступ к текущему пользователю, если он доступен.</param>
         /// <param name="mapper">Маппер.</param>
-        public ReadBookByIdRequestHandler(IBookDbContext bookDbContext, IMapper mapper)
+        public ReadBookByIdRequestHandler(IDataBaseContext dataBaseContext, IMapper mapper)
         {
-            _bookDbContext = bookDbContext;
+            _dataBaseContext = dataBaseContext;
             _mapper = mapper;
         }
 
@@ -39,7 +39,7 @@ namespace Library.BL.Command.Read.ReadBookId
         /// <returns></returns>
         public async Task<ReadBookByIdResponse> Handle(ReadBookByIdRequest request, CancellationToken cancellationToken)
         {
-            var contentEntity = await _bookDbContext.Books.FindAsync(request.Id);
+            var contentEntity = await _dataBaseContext.Books.FindAsync(request.Id);
 
             return new ReadBookByIdResponse
             {

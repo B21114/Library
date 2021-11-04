@@ -14,6 +14,6 @@ namespace Library.BL.Command.Create.CreateAuthor
         /// <summary>
         /// Идентификатор автора.
         /// </summary>
-        public Guid IdAuthor { get; set; }
+        public Guid AuthorId { get; set; }
     }
 }

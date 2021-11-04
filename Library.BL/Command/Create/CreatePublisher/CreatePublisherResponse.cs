@@ -14,7 +14,7 @@ namespace Library.BL.Command.Create.CreatePublisher
         /// <summary>
         /// Идентификатор издателя.
         /// </summary>
-        public Guid IdPublisher { get; set; }
+        public Guid PublisherId { get; set; }
 
     }
 }

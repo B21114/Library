@@ -13,7 +13,7 @@ namespace Library.BL.Command.Create.CreateBook
     /// </summary>
     public class CreateBookRequest : IRequest<CreateBookResponse>
     {
-   
+
         /// <summary>
         /// Aвтор книги.
         /// </summary>

@@ -14,27 +14,20 @@ namespace Library.BL.Command.Create.CreateBook
 {
     public class CreateBookRequestHandler : IRequestHandler<CreateBookRequest, CreateBookResponse>
     {
-        private readonly IAuthorDbContext _author;
-        private readonly IBookDbContext _bookDbContext;
-        private readonly IPublisherDbContext _publisherDbContext;
+        private readonly IDataBaseContext _dataBaseContext;
 
-        public CreateBookRequestHandler(IAuthorDbContext authorDbContext,
-            IBookDbContext bookDbContext,
-            IPublisherDbContext publisherDbContext)
+        public CreateBookRequestHandler(IDataBaseContext dataBaseContext)
         {
-            _author = authorDbContext;
-            _bookDbContext = bookDbContext;
-            _publisherDbContext = publisherDbContext;
+            _dataBaseContext = dataBaseContext;
         }
-
 
         public async Task<CreateBookResponse> Handle(
         CreateBookRequest request,
         CancellationToken cancellationToken)
         {
-   
+
             var author = new Author { Id = request.AuthorId };
-            var publisher = new Publisher { Id = request.PublisherId};
+            var publisher = new Publisher { Id = request.PublisherId };
 
             var book = new Book
             {
@@ -46,15 +39,15 @@ namespace Library.BL.Command.Create.CreateBook
             };
 
             // Начинает отслеживание сущности книги.
-            await _bookDbContext.Books.AddAsync(book);
+            await _dataBaseContext.Books.AddAsync(book);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
-            await _bookDbContext.SaveChangesAsync();
+            await _dataBaseContext.SaveChangesAsync();
 
             // Возвращает CreateBookResponse с Id новой записи.
             return new CreateBookResponse
             {
-                IdBook = book.Id
+                BookId = book.Id
             };
         }
     }

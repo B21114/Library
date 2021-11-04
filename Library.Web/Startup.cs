@@ -35,17 +35,8 @@ namespace Library.Web
             // Получаем строку подключения из файла конфигурации.
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
-            // Добавляем контекст AuthorContex в качестве сервиса в приложение.
+            // Добавляем контекст DataBaeContex в качестве сервиса в приложение.
             services.AddDbContext<IDataBaseContext, DataBaseContext>(options => options.UseInMemoryDatabase("MyDataBase"));
-
-            // Добавляем контекст AuthorContex в качестве сервиса в приложение.
-            services.AddDbContext<IAuthorDbContext, AuthorDbContext>(options => options.UseInMemoryDatabase("MyDataBase"));
-
-            // Добавляем контекст BookContex в качестве сервиса в приложение.
-            services.AddDbContext<IBookDbContext, BookDbContext>(options => options.UseInMemoryDatabase("MyDataBase"));
-
-            // Добавляем контекст PublisherContext в качестве сервиса в приложение.
-            services.AddDbContext<IPublisherDbContext, PublisherDbContext>(options => options.UseInMemoryDatabase("MyDataBase"));
 
             // Сервис помогающий реализовать паттерн Mediator(Посредник).
             services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -55,20 +46,23 @@ namespace Library.Web
             {
                 typeof(Library.BL.Bootstrap.ServiceCollectionExtensions).Assembly,
             };
-           
+
             // Сервис позволяющий проецировать одну модель на другую.
             services.AddAutoMapper(assemblies);
 
             // Сервис сканирует сборки и добавляет в контейнер реализации обработчиков.
             services.AddMediatR(assemblies);
-            
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
-                  new OpenApiInfo { Title = "Library.Web",
-                  Version = "v1", 
-                  Description = "API for the  Server" });
+                  new OpenApiInfo
+                  {
+                      Title = "Library.Web",
+                      Version = "v1",
+                      Description = "API for the  Server"
+                  });
             });
             services.AddControllersWithViews();
         }
@@ -79,7 +73,7 @@ namespace Library.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
- 
+
             }
             app.UseHttpsRedirection();
             app.UseSwagger();

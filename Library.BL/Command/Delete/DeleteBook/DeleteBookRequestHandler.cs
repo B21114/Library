@@ -14,17 +14,17 @@ namespace Library.BL.Command.Delete.DeleteBook
 {
     public class DeleteBookRequestHandler : IRequestHandler<DeleteBookRequest, DeleteBookResponse>
     {
-        private readonly IBookDbContext _bookDbContext;
-        public DeleteBookRequestHandler(IBookDbContext bookDbContext)
+        private readonly IDataBaseContext _dataBaseContext;
+        public DeleteBookRequestHandler(IDataBaseContext dataBaseContext)
         {
-            _bookDbContext = bookDbContext;
+            _dataBaseContext = dataBaseContext;
         }
         public async Task<DeleteBookResponse> Handle(
        DeleteBookRequest request,
        CancellationToken cancellationToken)
         {
             // Поиск книги в базе данных.
-            Book book = _bookDbContext.Books.Where(o => o.Id == request.IdBook).FirstOrDefault();
+            Book book = _dataBaseContext.Books.Where(o => o.Id == request.BookId).FirstOrDefault();
 
             if (book == null)
             {
@@ -36,10 +36,10 @@ namespace Library.BL.Command.Delete.DeleteBook
             else
             {
                 // Удаление найденной книги. 
-                _bookDbContext.Books.Remove(book);
+                _dataBaseContext.Books.Remove(book);
 
                 // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
-                await _bookDbContext.SaveChangesAsync();
+                await _dataBaseContext.SaveChangesAsync();
 
                 return new DeleteBookResponse
                 {

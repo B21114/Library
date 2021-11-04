@@ -22,6 +22,11 @@ namespace Library.DL.Domain.Entities
         public Author Author { get; set; }
 
         /// <summary>
+        /// Издатель книги.
+        /// </summary>
+        public Publisher Publisher { get; set; }
+
+        /// <summary>
         /// Наименование книги.
         /// </summary>
         public string Name { get; set; }
@@ -30,10 +35,5 @@ namespace Library.DL.Domain.Entities
         /// Количество страниц книги.
         /// </summary>
         public int NumberOfPages { get; set; }
-
-        /// <summary>
-        /// Издатель книги.
-        /// </summary>
-        public Publisher Publisher { get; set; }
     }
 }

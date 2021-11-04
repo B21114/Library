@@ -14,10 +14,10 @@ namespace Library.BL.Command.Create.CreatePublisher
     public class CreatePublisherRequestHandler : IRequestHandler<CreatePublisherRequest, CreatePublisherResponse>
     {
 
-        private readonly IPublisherDbContext _publisherDbContext;
-        public CreatePublisherRequestHandler(IPublisherDbContext publisherDbContext)
+        private readonly IDataBaseContext _dataBaseContext;
+        public CreatePublisherRequestHandler(IDataBaseContext dataBaseContext)
         {
-            _publisherDbContext = publisherDbContext;
+            _dataBaseContext = dataBaseContext;
         }
 
         public async Task<CreatePublisherResponse> Handle(
@@ -32,15 +32,15 @@ namespace Library.BL.Command.Create.CreatePublisher
             };
 
             // Начинает отслеживание сущности контент.
-            await _publisherDbContext.Publishers.AddAsync(publisher);
+            await _dataBaseContext.Publishers.AddAsync(publisher);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
-            await _publisherDbContext.SaveChangesAsync();
+            await _dataBaseContext.SaveChangesAsync();
 
             // Возвращает CreatePublisherResponse с Id новой записи.
             return new CreatePublisherResponse
             {
-                IdPublisher = publisher.Id
+                PublisherId = publisher.Id
             };
         }
     }

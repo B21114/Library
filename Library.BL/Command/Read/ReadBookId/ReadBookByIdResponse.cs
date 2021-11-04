@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Library.BL.Command.Read.ReadBookId
 {
     /// <summary>
-    /// Данные запроса на получения ответа от публикации по Id.
+    /// Данные ответа на запрос.
     /// </summary>
     public class ReadBookByIdResponse
     {

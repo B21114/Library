@@ -13,17 +13,16 @@ namespace Library.BL.Command.Create.CreateAuthor
 {
     public class CreateAuthorRequestHandler : IRequestHandler<CreateAuthorRequest, CreateAuthorResponse>
     {
-        private readonly IAuthorDbContext _authorDbContext;
-        public CreateAuthorRequestHandler(IAuthorDbContext authorDbContext)
+        private readonly IDataBaseContext _dataBaseContext;
+        public CreateAuthorRequestHandler(IDataBaseContext dataBaseContext)
         {
-            _authorDbContext = authorDbContext;
+            _dataBaseContext = dataBaseContext;
         }
 
         public async Task<CreateAuthorResponse> Handle(
          CreateAuthorRequest request,
          CancellationToken cancellationToken)
         {
-
             var author = new Author
             {
                 Id = Guid.NewGuid(),
@@ -34,14 +33,14 @@ namespace Library.BL.Command.Create.CreateAuthor
             };
 
             // Начинает отслеживание сущности контент.
-            await _authorDbContext.Authors.AddAsync(author);
+            await _dataBaseContext.Authors.AddAsync(author);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
-            await _authorDbContext.SaveChangesAsync();
+            await _dataBaseContext.SaveChangesAsync();
 
             return new CreateAuthorResponse
             {
-                IdAuthor = author.Id
+                AuthorId = author.Id
             };
         }
     }

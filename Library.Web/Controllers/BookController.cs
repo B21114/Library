@@ -24,7 +24,7 @@ namespace Library.Web.Controllers
         }
         [HttpPost]
         [Route("Book/CreateBook")]
-        public async Task<IActionResult> CreateBook([FromForm] CreateBookRequest command)
+        public async Task<IActionResult> CreateBook(CreateBookRequest command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
@@ -32,15 +32,15 @@ namespace Library.Web.Controllers
 
         [HttpDelete]
         [Route("Book/DeleteBook")]
-        public async Task<IActionResult> DeleteBook([FromForm] DeleteBookRequest command)
+        public async Task<IActionResult> DeleteBook(DeleteBookRequest command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("Book/ReadBook")]
-        public async Task<IActionResult> GetBook([FromForm] ReadBookByIdRequest command)
+        [HttpGet]
+        [Route("Book/GetBook")]
+        public async Task<IActionResult> GetBook(ReadBookByIdRequest command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);

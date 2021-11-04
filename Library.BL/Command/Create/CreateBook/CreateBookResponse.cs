@@ -9,11 +9,11 @@ namespace Library.BL.Command.Create.CreateBook
     /// <summary>
     /// DTO книги.
     /// </summary>
-    public class CreateBookResponse 
+    public class CreateBookResponse
     {
         /// <summary>
         /// Хранит идентификатор книги.
         /// </summary>
-        public Guid IdBook { get; set; }
+        public Guid BookId { get; set; }
     }
 }

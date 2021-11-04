@@ -16,6 +16,6 @@ namespace Library.BL.Command.Delete.DeleteBook
         /// <summary>
         /// Хранит идентификатор книги.
         /// </summary>
-        public Guid IdBook { get; set; }
+        public Guid BookId { get; set; }
     }
 }

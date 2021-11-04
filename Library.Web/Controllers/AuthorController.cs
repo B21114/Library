@@ -20,7 +20,7 @@ namespace Library.Web.Controllers
         }
         [HttpPost]
         [Route("Author/CreateAuthor")]
-        public async Task<IActionResult> CreatePublications([FromForm] CreateAuthorRequest command)
+        public async Task<IActionResult> CreatePublications(CreateAuthorRequest command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
