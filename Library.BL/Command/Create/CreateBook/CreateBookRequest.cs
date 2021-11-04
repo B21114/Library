@@ -17,7 +17,7 @@ namespace Library.BL.Command.Create.CreateBook
         /// <summary>
         /// Aвтор книги.
         /// </summary>
-        public Guid AuthorId { get; set; }
+        public string AuthorsId { get; set; }
 
         /// <summary>
         /// Издатель книги.

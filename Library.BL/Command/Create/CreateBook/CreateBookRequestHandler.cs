@@ -25,15 +25,24 @@ namespace Library.BL.Command.Create.CreateBook
         CreateBookRequest request,
         CancellationToken cancellationToken)
         {
-         //   if(request.AuthorId == _dataBaseContext.Authors.Where(o => o.Id == request.AuthorId).FirstOrDefault();)
-           // _dataBaseContext.Authors.Where(o => o.Id == request.AuthorId).FirstOrDefault();
-            var author = new Author { Id = request.AuthorId };
-            var publisher = new Publisher { Id = request.PublisherId };
+
+            var publisher = await _dataBaseContext.Publishers.FindAsync(request.PublisherId);
+
+            // Прилетает строка с несколькими Id через запятую, она разбивается на несколько авторов
+            var authors = request.AuthorsId
+                .Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+
+            // Перебираю найденных авторов в базе данных и присваиваю в темпавтор.
+            foreach (var authorId in authors)
+            {
+                var tempauthor = await _dataBaseContext.Authors.FindAsync(authorId);
+            };
+            var dfd = List<Author> { new Author { Id} }
 
             var book = new Book
             {
                 Id = Guid.NewGuid(),
-                Author = author,
+                Author = ,
                 Name = request.Name,
                 NumberOfPages = request.NumberOfPages,
                 Publisher = publisher

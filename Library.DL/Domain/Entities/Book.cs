@@ -17,9 +17,9 @@ namespace Library.DL.Domain.Entities
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Aвтор книги.
+        /// Лист авторов книги.
         /// </summary>
-        public Author Author { get; set; }
+        public List<Author> Authors { get; set; }
 
         /// <summary>
         /// Издатель книги.

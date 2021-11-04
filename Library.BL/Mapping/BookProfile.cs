@@ -24,10 +24,11 @@ namespace Library.BL.Mapping
                     destinationMember: dto => dto.AuthorFullInfo,
                     memberOptions: o2 => o2.MapFrom(o3 => string.Join(
                         " ",
-                        o3.Author.Id,
-                        o3.Author.Lastname,
-                        o3.Author.Firstname,
-                        o3.Author.Patronymic)))
+                        o3.Author.Count
+                   //     o3.Author.Lastname,
+                   //     o3.Author.Firstname,
+                   //     o3.Author.Patronymic
+                        )))
                 .ForMember(
                     destinationMember: dto => dto.PublisherFullInfo,
                     memberOptions: o2 => o2.MapFrom(o3 => string.Join(

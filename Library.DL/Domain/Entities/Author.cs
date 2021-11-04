@@ -35,5 +35,10 @@ namespace Library.DL.Domain.Entities
         /// Деятельность автора.
         /// </summary>
         public string Activity { get; set; }
+
+        /// <summary>
+        /// Лист авторов книги.
+        /// </summary>
+        public List<Author> Authors { get; set; }
     }
 }
