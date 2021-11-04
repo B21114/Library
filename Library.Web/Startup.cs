@@ -36,6 +36,9 @@ namespace Library.Web
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             // Добавляем контекст AuthorContex в качестве сервиса в приложение.
+            services.AddDbContext<IDataBaseContext, DataBaseContext>(options => options.UseInMemoryDatabase("MyDataBase"));
+
+            // Добавляем контекст AuthorContex в качестве сервиса в приложение.
             services.AddDbContext<IAuthorDbContext, AuthorDbContext>(options => options.UseInMemoryDatabase("MyDataBase"));
 
             // Добавляем контекст BookContex в качестве сервиса в приложение.
