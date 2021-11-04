@@ -25,7 +25,8 @@ namespace Library.BL.Command.Create.CreateBook
         CreateBookRequest request,
         CancellationToken cancellationToken)
         {
-
+         //   if(request.AuthorId == _dataBaseContext.Authors.Where(o => o.Id == request.AuthorId).FirstOrDefault();)
+           // _dataBaseContext.Authors.Where(o => o.Id == request.AuthorId).FirstOrDefault();
             var author = new Author { Id = request.AuthorId };
             var publisher = new Publisher { Id = request.PublisherId };
 

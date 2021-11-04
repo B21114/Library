@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Library.BL.Command.Read.ReadBookId
+namespace Library.BL.Querises.ReadBookById
 {
     /// <summary>
     /// Данные запроса на получения обработчиком публикации по Id.

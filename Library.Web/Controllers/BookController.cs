@@ -1,6 +1,6 @@
 ﻿using Library.BL.Command.Create.CreateBook;
 using Library.BL.Command.Delete.DeleteBook;
-using Library.BL.Command.Read.ReadBookId;
+using Library.BL.Querises.ReadBookById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;

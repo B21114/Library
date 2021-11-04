@@ -33,10 +33,14 @@ namespace Library.Web
             services.AddControllers();
 
             // Получаем строку подключения из файла конфигурации.
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var optionsBuilder = new DbContextOptionsBuilder<DataBaseContext>();
+            //var options = optionsBuilder
+             //   .UseSqlServer(connectionString)
+             //   .Options;
 
             // Добавляем контекст DataBaeContex в качестве сервиса в приложение.
-            services.AddDbContext<IDataBaseContext, DataBaseContext>(options => options.UseInMemoryDatabase("MyDataBase"));
+            services.AddDbContext<IDataBaseContext, DataBaseContext>(options => options.UseSqlServer(connectionString));
 
             // Сервис помогающий реализовать паттерн Mediator(Посредник).
             services.AddMediatR(Assembly.GetExecutingAssembly());

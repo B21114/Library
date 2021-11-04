@@ -28,7 +28,7 @@ namespace Library.DL.Infrastructure
 
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
     }
 }
