@@ -23,30 +23,23 @@ namespace Library.BL.Command.Delete.DeleteBook
        DeleteBookRequest request,
        CancellationToken cancellationToken)
         {
-            // Поиск книги в базе данных.
-            Book book = _dataBaseContext.Books.Where(o => o.Id == request.BookId).FirstOrDefault();
-
-            if (book == null)
+            var book = new Book()
             {
-                return new DeleteBookResponse
-                {
-                    Deleted = false
-                };
-            }
-            else
+                Id = request.BookId
+            };
+
+            _dataBaseContext.Books.Attach(book);
+            _dataBaseContext.Books.Remove(book);
+
+            // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
+            await _dataBaseContext.SaveChangesAsync();
+
+            return new DeleteBookResponse
             {
-                // Удаление найденной книги. 
-                _dataBaseContext.Books.Remove(book);
-
-                // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.
-                await _dataBaseContext.SaveChangesAsync();
-
-                return new DeleteBookResponse
-                {
-                    Deleted = true
-                };
-            }
+                Deleted = true
+            };
         }
-
     }
+
 }
+

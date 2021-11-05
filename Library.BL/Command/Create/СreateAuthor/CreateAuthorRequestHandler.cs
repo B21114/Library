@@ -32,7 +32,7 @@ namespace Library.BL.Command.Create.CreateAuthor
                 Activity = request.Activity
             };
 
-            // Начинает отслеживание сущности контент.
+            // Начинает отслеживание сущности автор.
             await _dataBaseContext.Authors.AddAsync(author);
 
             // Асинхронно сохраняет все изменения, внесенные в этом контексте, в основную базу данных.

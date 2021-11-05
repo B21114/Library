@@ -12,19 +12,9 @@ namespace Library.BL.Querises.ReadBookById
     public class BookDetailsDto
     {
         /// <summary>
-        /// Идентификатор контента.
+        /// Информация о книге Dto.
         /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Наименование книги.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Количество страниц книги.
-        /// </summary>
-        public int NumberOfPages { get; set; }
+        public string BookFullInfo { get; set; }
 
         /// <summary>
         /// ФИО автора Dto.

@@ -27,22 +27,31 @@ namespace Library.BL.Command.Create.CreateBook
         {
 
             var publisher = await _dataBaseContext.Publishers.FindAsync(request.PublisherId);
-
-            // Прилетает строка с несколькими Id через запятую, она разбивается на несколько авторов
-            var authors = request.AuthorsId
-                .Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Перебираю найденных авторов в базе данных и присваиваю в темпавтор.
-            foreach (var authorId in authors)
+            if (publisher == null)
             {
-                var tempauthor = await _dataBaseContext.Authors.FindAsync(authorId);
-            };
-            var dfd = List<Author> { new Author { Id} }
+                new Exception("publisher null");
+            }
 
-            var book = new Book
+            // Получаем строку с несколькими Id, перечисленных через запятую,
+            // она разбивается на несколько авторов.
+            var authors = request.AuthorsId.Split(',');
+
+            IEnumerable<Guid> guidsCollection = authors.Select(p => Guid.Parse(p));
+            /*List<Author> authors1 = new List<Author>();
+
+            foreach (Guid guid in guidsCollection)
+            {
+                authors1.Add(await _dataBaseContext.Authors.FindAsync(guid));
+            };*/
+            var author = await _dataBaseContext.Authors.FindAsync(guidsCollection.First());
+            if (author == null)
+            {
+                new Exception("author null");
+            }
+                var book = new Book
             {
                 Id = Guid.NewGuid(),
-                Author = ,
+                Author = author,
                 Name = request.Name,
                 NumberOfPages = request.NumberOfPages,
                 Publisher = publisher

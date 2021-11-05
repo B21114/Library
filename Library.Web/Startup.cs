@@ -15,6 +15,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using System.Reflection;
+using AutoMapper;
+using Library.BL.Mapping;
 
 namespace Library.Web
 {
@@ -35,10 +37,7 @@ namespace Library.Web
             // Получаем строку подключения из файла конфигурации.
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             var optionsBuilder = new DbContextOptionsBuilder<DataBaseContext>();
-            //var options = optionsBuilder
-             //   .UseSqlServer(connectionString)
-             //   .Options;
-
+           
             // Добавляем контекст DataBaeContex в качестве сервиса в приложение.
             services.AddDbContext<IDataBaseContext, DataBaseContext>(options => options.UseSqlServer(connectionString));
 
@@ -52,7 +51,9 @@ namespace Library.Web
             };
 
             // Сервис позволяющий проецировать одну модель на другую.
-            services.AddAutoMapper(assemblies);
+          
+            services.AddAutoMapper(typeof(BookProfile));
+            
 
             // Сервис сканирует сборки и добавляет в контейнер реализации обработчиков.
             services.AddMediatR(assemblies);

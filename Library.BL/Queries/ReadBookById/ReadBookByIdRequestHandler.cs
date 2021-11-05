@@ -22,7 +22,6 @@ namespace Library.BL.Querises.ReadBookById
         /// Конструтктор обработчиков запроса публикаций.
         /// </summary>
         /// <param name="contentDbContext">Контекст базы данных предоставляющий контент.</param>
-        /// <param name="httpContextAccessor">Предоставляет доступ к текущему пользователю, если он доступен.</param>
         /// <param name="mapper">Маппер.</param>
         public ReadBookByIdRequestHandler(IDataBaseContext dataBaseContext, IMapper mapper)
         {
