@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.DL.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace Library.BL.Querises.ReadBookById
         /// <returns></returns>
         public async Task<ReadBookByIdResponse> Handle(ReadBookByIdRequest request, CancellationToken cancellationToken)
         {
-            var contentEntity = await _dataBaseContext.Books.FindAsync(request.Id);
+            var contentEntity = await _dataBaseContext.Books.Include(p => p.Author).Include(p => p.Publisher).FirstOrDefaultAsync(p => p.Id == request.Id);
 
             return new ReadBookByIdResponse
             {
